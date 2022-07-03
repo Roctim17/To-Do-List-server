@@ -25,6 +25,13 @@ async function run() {
             res.send(task);
         });
 
+        app.get('/addtask/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email };
+            const tasks = await tasksCollection.find(query).toArray();
+            res.send(tasks);
+        });
+
         app.post("/addtask", async (req, res) => {
             const data = req.body;
             const result = await tasksCollection.insertOne(data);
